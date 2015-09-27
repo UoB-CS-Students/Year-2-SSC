@@ -3,7 +3,7 @@ Software System Components
 
 Introduction
 ------------
-This is a repository containing shared resources for the Software System Component course at the University of Birmingham. 
+This is a repository containing shared resources for the Software System Component module at the University of Birmingham. 
 
 You can visit the [main repository page][main-repo] to find out more about the idea and how to contribute.
 
