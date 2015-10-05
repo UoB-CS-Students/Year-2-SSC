@@ -1,0 +1,141 @@
+\chapter{Constraints}
+Constraints place restrictions on the values (or set of values) that can be inserted into the database. They are \text{hard} constraints, meaning the DBMS will check and enforce them. They are metadata used to make explicit domain constraints, e.g. an age must be non-negative, and they maintain the integrity of the database, not just locally to the table, e.g. only record marks for students who are registered.
+
+Examples of constraints are domain constraints, \\
+e.g. \verb|INTEGER|, \verb|NOT NULL|, \verb|UNIQUE|.
+
+\section{Keys}
+\subsection{Primary Key}
+By tagging an attribute as a primary key, it enforces the constraints \verb|UNIQUE| and \verb|NOT NULL|. It also signals to the DBMS that this is \textit{probably} an attribute that can be used to uniquely identify tuples.
+
+A primary key constraint can be seen in the following example:
+\begin{lstlisting}[language=SQL,tabsize=3]
+CREATE TABLE Student (
+	sid INTEGER,
+	...
+	PRIMARY KEY (sid)
+)
+\end{lstlisting}
+
+And a relation with a primary key can be denoted as \texttt{Student(\underline{sid}, dob, login, course)}.
+
+\subsubsection{Primary Key Example}
+\begin{lstlisting}[language=SQL,tabsize=3]
+CREATE TABLE Student (
+	sid INTEGER,
+	dob CHAR(10),
+	login CHAR(20),
+	course CHAR(10),
+	PRIMARY KEY (sid)
+)
+\end{lstlisting}
+
+which is the same as
+
+\begin{lstlisting}[language=SQL, tabsize=3]
+CREATE TABLE Student (
+	sid INTEGER,
+	dob CHAR(10),
+	login CHAR(20),
+	course CHAR(10),
+	CONSTRAINT StudentsKey PRIMARY KEY (sid)
+)
+\end{lstlisting}
+
+by naming the constraint, we are able to manipulate it later (we don't want rebuild the whole database!)
+
+\subsection{Foreign Key}
+A foreign key defines a link to another table. It usually specifies the primary key in that other table. Any row inserted into \textit{this} table must	satisfy the constraint that the foreign key in \textit{this} table must be matched by a key in the other table.
+
+\subsubsection{Foreign Key Example}
+\begin{lstlisting}[language=SQL,tabsize=3]
+CREATE TABLE Student (
+	sid INTEGER,
+	dob CHAR(10),
+	login CHAR(20),
+	course CHAR(10),
+	PRIMARY KEY (sid)
+)
+
+CREATE TABLE Marks (
+	sid INTEGER,
+	cid INTEGER,
+	mark INTEGER,
+	FOREIGN KEY (sid) REFERENCES Student (sid),
+	FOREIGN KEY (cid) REFERENCES Course (cid)
+)
+\end{lstlisting}
+
+This isn't just checked on insertion; it's guaranteed to \textit{always} be true.
+
+\section{Deletion}
+What happens if we want to delete a record? We can't have some fields referencing non-existent values in other tables. There are several operations to deal with deletion:
+
+\begin{description}
+	\item[ON DELETE RESTRICT] checks whether or not the deletion will put the system in an inconsistent state \textit{before} the deletion is performed.
+	\item[ON DELETE NO ACTION] checks whether or not the deletion will put the system in an inconsistent state \textit{after} the deletion is performed.
+	\item[ON DELETE CASCADE] propagates the deletion in one table throughout the other tables.
+	\item[ON DELETE SET DEFAULT/NULL] instead of deleting the record, it gives it a default value, e.g. 999999.
+\end{description}
+
+So the integrity of the database is maintained by forbidding the deletion \\
+(\verb|RESTRICT|, \verb|NO ACTION|), or by deleting rows that reference the deleted key (\verb|CASCADE|).
+
+\subsubsection{Example of Deletion Control}
+\begin{lstlisting}[language=SQL,tabsize=3]
+CREATE TABLE Marks (
+	sid INTEGER,
+	cid INTEGER,
+	mark INTEGER,
+	
+	FOREIGN KEY (sid) REFERENCES Student (sid),
+		ON DELETE CASCADE,
+		ON UPDATE CASCADE,
+	FOREIGN KEY (cid) REFERENCES Course (cid)
+)
+\end{lstlisting}
+
+The code indicates that 
+\begin{itemize}
+	\item changes to \verb|sid| in the Students table propagate through to the Marks table.
+	\item changes to \verb|cid| in the Courses table are forbidden (the default action is \verb|NO ACTION|).
+\end{itemize}
+
+\section{Domain Constraints}
+We can enforce additional constraints:
+\begin{itemize}
+	\item Local constraints
+	\item Constraints over more than one table
+\end{itemize}
+
+For example:
+\begin{lstlisting}[language=SQL,tabsize=3]
+CREATE TABLE Marks (
+	sid INTEGER,
+	cid INTEGER,
+	mark INTEGER,
+	
+	FOREIGN KEY (sid) REFERENCES Student (sid),
+		ON DELETE CASCADE,
+		ON UPDATE CASCADE,
+	FOREIGN KEY (cid) REFERENCES Course (cid),
+	CHECK (mark >= 0 and mark <= 100)
+)
+\end{lstlisting}
+
+\section{Constraints: Summary}
+\begin{itemize}
+	\item Constraints express metadata about our domain---they are declarative, so no need to write code.
+	\item They are guaranteed to be enforced (not just checks on insertion).
+	\item When designing, capture all \textit{hard} domain constraints and express them in the database.
+	\item Do not include constraints which are desirable but not inviolable, e.g. someone might not have a surname, so don't add the constraint \verb|NOT NULL| to the surname field.
+\end{itemize}
+
+
+
+
+
+
+
+
+
