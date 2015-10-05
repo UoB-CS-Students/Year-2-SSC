@@ -1,0 +1,28 @@
+\chapter{DML}
+\section{Drop and alter}
+\subsection{Drop}
+\verb|DROP| deletes the table.
+
+\begin{lstlisting}[tabsize=3, language=sql]
+DROP TABLE Student
+\end{lstlisting}
+
+\subsection{Alter}
+\verb|ALTER| modifies the table definition.
+
+\begin{lstlisting}[tabsize=3, language=sql]
+ALTER TABLE Student
+	ADD COLUMN year_of_study INTEGER
+\end{lstlisting}
+
+\section{Types}
+\begin{description}
+	\item[BOOLEAN] \verb|TRUE|, \verb|FALSE|, or \verb|NULL|
+	\item[CHAR(size) or CHARACTER(size)]
+	\item[Strings] Several versions
+	\item[INTEGER or INT] Several variations
+	\item[FLOAT or DOUBLE]
+	\item[REAL, NUMERIC, or DECIMAL]
+	\item[DATE]
+	\item[TIME] a time-of-day value
+\end{description}

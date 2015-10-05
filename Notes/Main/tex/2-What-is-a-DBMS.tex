@@ -1,0 +1,149 @@
+\chapter{DBMS}
+\section{What is a DBMS?}
+A DBMS consists of a core database which provides:
+
+\begin{enumerate}
+	\item Representation of data
+	\item Retrieval and maintenance of data
+\end{enumerate}
+
+It also has a \textbf{collection of tools}:
+\begin{itemize}
+	\item Design and build and maintenance
+	\item E.g. standard applications
+\end{itemize}
+
+And it provides:
+\begin{itemize}
+	\item An abstraction from implementation
+	\item Efficient implementation
+	\item Integrity, fault tolerance, security, \ldots
+	\item Standard (and bespoke) interfaces, e.g. SQL for querying a database
+\end{itemize}
+
+\section{Relational databases}
+\textbf{Relational databases} are the pre-eminent choice for \textit{general purpose} database systems, especially for commercial/enterprise systems since consistency, reliability etc. are critical.
+\medskip
+Here are some points about relational databases:
+\begin{itemize}
+	\item Main model for database systems
+	\item Data in form of sets and relations
+	\item Data connected using basic set theory (selecting, combining, etc.)
+	\item Normally viewed as \textbf{tables}
+	\item Queries specify result, but now how it is computed, i.e. it is \textit{declarative}
+\end{itemize}
+
+\section{Database Models}
+We don't always need all the benefits of a relational database; we may not even need to write to or update our database. But we may need performance, scaleability, and flexibility.
+
+\section{What makes a good database?}
+\begin{itemize}
+	\item It should be an \textit{organised} collection of data
+	\begin{itemize}
+		\item For a purpose
+		\item To facilitate some set of activities
+		\item Organised so that it can be accessed and maintained efficiently.
+	\end{itemize}
+	\item Data independence from internal or physical representation.
+	\item Minimise redundancy (only store data once)
+	\item Maximise consistency (one underlying representation)
+	\item Enable integration and sharing
+	\item Facilitate change
+	\item Logical organisation-
+\end{itemize}
+
+\section{ACID}
+\begin{description}
+	\item[Atomicity] a transaction happens as a whole, or not at all.
+	\item[Consistency] a database is always in a consistent state (according to the rules defined)
+	\item[Isolation] the effect of two operations happening in parallel is the same as if they had happened sequentially
+	\item[Durability] once something is stored it won't disappear
+\end{description}
+
+\textit{It should do all this even if the plug is unpulled}.
+
+\section{ANSI-SPARC Architecture}
+ANSI-SPARC is an abstract design standard for a DBMS. 
+It has three different levels:
+\begin{description}
+	\item[External level (user views)] a user's view of the database describes a part of the database that is relevant to a particular user.
+	\item[Conceptual level] is a way of describing what data is stored within the whole database and how the data is interrelated. 
+	\item[Internal level] involves how the database is physically represented on the computer system. It describes how the data is actually stored in the database on the computer hardware.
+\end{description}
+
+
+
+
+\section{Database applications}
+Users are usually shielded from the underlying database by application programs and web interfaces; this is for convenience and security.
+
+\section{Data definition language (DDL)}
+A data definition language is used to create, modify, and delete parts of the definition of the database.
+
+Here is a sample of SQL code that would create a table called \verb|student| with the fields \verb|sid|, \verb|dob|, \verb|login|, and \verb|course|.
+\begin{lstlisting}[language=SQL]
+CREATE TABLE Student (
+	sid	INTEGER
+	dob	CHAR(10)
+	login	CHAR(20)
+	course	CHAR(10)
+)
+\end{lstlisting}
+
+\section{Data manipulation language}
+A data manipulation language is used to manipulate the data.
+
+Here is a sample of SQL code that would select the \verb|sid| and \verb|login| columns from the \verb|Student| table where the course name is \verb|Se|:
+\begin{lstlisting}[language=SQL]
+SELECT	sid,login
+FROM	Student
+WHERE	course=`Se'
+\end{lstlisting}
+
+We can impose constraints on the data. We can define these when we create the table, or we can add them later. Here is an example of imposing restraints:
+
+\begin{lstlisting}[tabsize=3, language=sql]
+CREATE TABLE Student (
+	sid		INTEGER 	NOT NULL UNIQUE,
+	dob		CHAR(10),
+	login 	CHAR(20)	UNIQUE,
+	course	CHAR(10)
+)
+\end{lstlisting}
+
+\section{Relational definitions}
+\begin{description}
+	\item[Domain] an arbitrary (non-empty) set of atomic values.
+	\item[Attribute name] a symbol with an associated domain, \(\operatorname{dom}(A)\).
+	\item[Relational schema] a finite set of attribute names.
+	\item[Tuple, \(t\), of a relational schema \(R\)] a mapping from attributes \(A\) of a relational schema \(R\) to the union of their domains \(\operatorname{dom}(A) : t(A) \in \operatorname{dom}(A)\)
+	\item[Relation, \(r\), of a relational schema \(R\)] a finite set of tuples of relational s\-che\-ma \(R\)
+	\item[Degree (Arity) of a relational schema] the number of attributes
+	\item[Cardinality of a relation] the number of tuples
+\end{description}
+
+\section{Keys}
+\begin{description}
+	\item[Superkey] a set of attributes that can \textit{always} be used to differentiate one tuple from another (within a relation).
+	\item[Key] a minimal superkey.
+	\item[Concatenated key] a key with more than one attribute.
+	\item[Candidate key] any key.
+	\item[\underline{Primary} key] one of the candidate keys.
+	\item[\underline{Foreign} key] an attribute of the relation which is the key for another relation.
+\end{description}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
