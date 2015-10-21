@@ -1,7 +1,7 @@
 How to setup JDBC for Postgresql
 ================================
 1. Download the Postgresql JDBC driver [here][driver-link]
-2. Add a `lib` folder to your Eclipse project. Your folder structure should be
+2. Add a `lib` folder to your Eclipse project. Your folder structure should be  
   ```
   my-project
   |
@@ -12,7 +12,7 @@ How to setup JDBC for Postgresql
 3. Add the JDBC driver to your build path.
   1. Open your project in Eclipse. If it is already open, refresh it by right-clicking the project folder and clicking `Refresh`.
   2. Project - Properties - Java Build Path - Libraries (tab) - Add JARs - {choose the JAR from the `lib` folder}.
-4. In your code, add
+4. In your code, add  
   ```
   Class.forName("org.postgresql.Driver");
   String url = "jdbc:postgresql://dbteach2.cs.bham.ac.uk/xyz123";
