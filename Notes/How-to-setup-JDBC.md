@@ -15,7 +15,7 @@ How to setup JDBC for Postgresql
   2. Project - Properties - Java Build Path - Libraries (tab) - Add JARs - {choose the JAR from the `lib` folder}.
 4. In your code, add  
 
-  ```
+  ```java
   Class.forName("org.postgresql.Driver");
   String url = "jdbc:postgresql://dbteach2.cs.bham.ac.uk/xyz123";
   Connection conn = DriverManager.getConnection(url, USERNAME, PASSWORD);
