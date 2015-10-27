@@ -1,6 +1,6 @@
 How to setup JDBC for Postgresql
 ================================
-1. Download the Postgresql JDBC driver [here][driver-link]
+1. Download the Postgresql JDBC driver [here](https://jdbc.postgresql.org/download.html)
 2. Add a `lib` folder to your Eclipse project. Your folder structure should be  
 
   ```
@@ -22,5 +22,3 @@ How to setup JDBC for Postgresql
   ```
   Replace `USERNAME` and `PASSWORD` with your username and password, respectively.
 5. Make sure you are connected to the VPN and run your code to see if you can connect.
-
-[driver-link]: https://jdbc.postgresql.org/download.html
