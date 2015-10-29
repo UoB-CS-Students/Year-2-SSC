@@ -1,7 +1,7 @@
 Software System Components
 ==========================
 
-Introduction
+Introduction  
 ------------
 This is a repository containing shared resources for the Software System Component module at the University of Birmingham. 
 
